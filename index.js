@@ -9,12 +9,14 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({
     extended: true
 }));
+app.use(express.static("public"));
 
 var client = redis.createClient(process.env.REDIS_URL);
 
 app.post("/", function(req, res){
 
     var url = req.body.url;
+    var base = "https://safe-earth-31395.herokuapp.com/";
 
     if (!(url_regex({exact: true}).test(url))) {
         res.send({error: "Invalid URL"});
@@ -22,7 +24,7 @@ app.post("/", function(req, res){
 
     var encoded = base64_url.encode(url);
     client.set(encoded, url);
-    res.send({original_url: url, short_url: encoded});
+    res.send({original_url: url, short_url: base+encoded});
 });
 
 app.get("/:short", function(req, res) {
@@ -35,6 +37,9 @@ app.get("/:short", function(req, res) {
     })
 })
 
+app.get("/", function(req, res) {
+    res.sendFile('index.html', {root: __dirname});
+});
 
 app.listen(process.env.PORT || 8000, function() {
     console.log("Listening on port " + (process.env.PORT || 8000));
