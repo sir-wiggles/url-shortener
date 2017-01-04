@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="index.css" rel="stylesheet">
+</head>
+<body>
+    
+    <h1>URL Shortener Microserver</h1>
+    <h2>Example Usage:</h2>
+    <pre><code>curl -X POST -H "Content-Type: application/json" -d '{"url": "http://www.google.com"}' \
+https://safe-earth-31395.herokuapp.com/
+    
+{"original_url":"http://www.google.com","short_url":"https://safe-earth-31395.herokuapp.com/aHR0cDovL3d3dy5nb29nbGUuY29t"}
+</code></pre>
+
+<p>Take the <code>short_url</code> and put that in the address bar of a browser and behold</p>
+
+</body>
+</html>
